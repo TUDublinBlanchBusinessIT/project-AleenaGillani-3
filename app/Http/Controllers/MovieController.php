@@ -14,7 +14,6 @@ class MovieController extends Controller
     public function index()
     {
        
-        return 'Testing Movies Index';
 
         // Retrieve all movies
         $movies = Movie::all();
