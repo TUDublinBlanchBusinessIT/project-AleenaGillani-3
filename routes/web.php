@@ -5,7 +5,7 @@ use App\Http\Controllers\GenreController;
 use App\Http\Controllers\MovieController;
 
 Route::get('/', function () {
-    return 'Hello, Laravel is working!';
+    return view('home');
 });
 
 // Resource routes for Genres and Movies
