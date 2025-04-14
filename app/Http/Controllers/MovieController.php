@@ -13,8 +13,6 @@ class MovieController extends Controller
      */
     public function index()
     {
-       
-
         // Retrieve all movies
         $movies = Movie::all();
         return view('movies.index', compact('movies'));
@@ -46,7 +44,8 @@ class MovieController extends Controller
 
         Movie::create($validated);
 
-        return redirect()->route('movies.index')->with('success', 'Movie created successfully.');
+        return redirect()->route('movies.index')
+            ->with('success', 'Movie created successfully.');
     }
 
     /**
@@ -87,7 +86,8 @@ class MovieController extends Controller
         $movie = Movie::findOrFail($id);
         $movie->update($validated);
 
-        return redirect()->route('movies.index')->with('success', 'Movie updated successfully.');
+        return redirect()->route('movies.index')
+            ->with('success', 'Movie updated successfully.');
     }
 
     /**
@@ -99,6 +99,7 @@ class MovieController extends Controller
         $movie = Movie::findOrFail($id);
         $movie->delete();
 
-        return redirect()->route('movies.index')->with('success', 'Movie deleted successfully.');
+        return redirect()->route('movies.index')
+            ->with('success', 'Movie deleted successfully.');
     }
 }

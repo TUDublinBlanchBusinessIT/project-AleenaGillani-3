@@ -37,7 +37,8 @@ class GenreController extends Controller
 
         Genre::create($validated);
 
-        return redirect()->route('genres.index')->with('success', 'Genre created successfully.');
+        return redirect()->route('genres.index')
+            ->with('success', 'Genre created successfully.');
     }
 
     /**
@@ -73,7 +74,8 @@ class GenreController extends Controller
         $genre = Genre::findOrFail($id);
         $genre->update($validated);
 
-        return redirect()->route('genres.index')->with('success', 'Genre updated successfully.');
+        return redirect()->route('genres.index')
+            ->with('success', 'Genre updated successfully.');
     }
 
     /**
@@ -85,6 +87,7 @@ class GenreController extends Controller
         $genre = Genre::findOrFail($id);
         $genre->delete();
 
-        return redirect()->route('genres.index')->with('success', 'Genre deleted successfully.');
+        return redirect()->route('genres.index')
+            ->with('success', 'Genre deleted successfully.');
     }
 }
