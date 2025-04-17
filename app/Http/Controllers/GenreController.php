@@ -12,7 +12,6 @@ class GenreController extends Controller
      */
     public function index()
     {
-        // Retrieve all genres
         $genres = Genre::all();
         return view('genres.index', compact('genres'));
     }
@@ -30,10 +29,7 @@ class GenreController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate and store the new genre
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
+        $validated = $request->validate($this->genreRules());
 
         Genre::create($validated);
 
@@ -46,7 +42,6 @@ class GenreController extends Controller
      */
     public function show(string $id)
     {
-        // Find and display a single genre
         $genre = Genre::findOrFail($id);
         return view('genres.show', compact('genre'));
     }
@@ -56,7 +51,6 @@ class GenreController extends Controller
      */
     public function edit(string $id)
     {
-        // Find genre to edit
         $genre = Genre::findOrFail($id);
         return view('genres.edit', compact('genre'));
     }
@@ -66,10 +60,7 @@ class GenreController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // Validate and update the genre
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
+        $validated = $request->validate($this->genreRules());
 
         $genre = Genre::findOrFail($id);
         $genre->update($validated);
@@ -83,11 +74,21 @@ class GenreController extends Controller
      */
     public function destroy(string $id)
     {
-        // Find and delete the genre
         $genre = Genre::findOrFail($id);
         $genre->delete();
 
         return redirect()->route('genres.index')
             ->with('success', 'Genre deleted successfully.');
+    }
+
+    /**
+     * Validation rules for genres.
+     */
+    protected function genreRules(): array
+    {
+        return [
+            'name'        => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ];
     }
 }
