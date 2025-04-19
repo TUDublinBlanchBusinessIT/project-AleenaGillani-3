@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.bootstrap')
 
 @section('content')
 <div class="container">
     <h1>Movies</h1>
-    
+
     <!-- Search and Filter Form -->
     <form action="{{ route('movies.index') }}" method="GET" class="mb-3">
         <div class="row">
@@ -25,10 +25,10 @@
             </div>
         </div>
     </form>
-    
+
     <!-- Movie Creation Link -->
     <a href="{{ route('movies.create') }}" class="btn btn-success mb-3">Add New Movie</a>
-    
+
     <!-- Movies Table -->
     <table class="table table-bordered">
         <thead>

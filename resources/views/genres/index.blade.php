@@ -1,8 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.bootstrap')
 
 @section('content')
 <h1>Genres</h1>
+
 <a href="{{ route('genres.create') }}" class="btn btn-success mb-3">Add New Genre</a>
+
 <table class="table table-bordered">
   <thead>
     <tr>
