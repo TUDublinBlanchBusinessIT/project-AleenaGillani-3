@@ -1,12 +1,9 @@
-<!-- resources/views/genres/create.blade.php -->
-
 @extends('layouts.bootstrap')
 
 @section('content')
 <div class="container">
     <h1 class="mb-4">Add New Genre</h1>
 
-    <!-- Display Validation Errors -->
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul class="mb-0">
@@ -26,7 +23,7 @@
                 type="text" 
                 name="name" 
                 id="name" 
-                class="form-control" 
+                class="form-control @error('name') is-invalid @enderror" 
                 value="{{ old('name') }}" 
                 required>
         </div>
@@ -36,8 +33,8 @@
             <textarea 
                 name="description" 
                 id="description" 
-                class="form-control"
-                >{{ old('description') }}</textarea>
+                class="form-control @error('description') is-invalid @enderror"
+            >{{ old('description') }}</textarea>
         </div>
 
         <button type="submit" class="btn btn-primary">Add Genre</button>
