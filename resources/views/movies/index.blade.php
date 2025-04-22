@@ -26,8 +26,11 @@
         </div>
     </form>
 
-    <!-- Movie Creation Link -->
-    <a href="{{ route('movies.create') }}" class="btn btn-success mb-3">Add New Movie</a>
+    <!-- Movie Creation and Trash Link -->
+    <div class="d-flex justify-content-between mb-3">
+        <a href="{{ route('movies.create') }}" class="btn btn-success">Add New Movie</a>
+        <a href="{{ route('movies.trash') }}" class="btn btn-secondary">View Trash</a>
+    </div>
 
     <!-- Movies Table -->
     <table class="table table-bordered">

@@ -19,7 +19,10 @@ return new class extends Migration
             $table->string('rating')->nullable();  // Rating (nullable)
             $table->text('description')->nullable();  // Description of the movie (nullable)
             $table->timestamps();  // Timestamps for created_at and updated_at
+            $table->softDeletes(); // Add this
+
         });
+
     }
 
     /**

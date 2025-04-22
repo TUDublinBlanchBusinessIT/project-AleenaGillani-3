@@ -109,4 +109,21 @@ class MovieController extends Controller
             'description'  => 'nullable|string',
         ];
     }
+
+
+    public function trash()
+    {
+        $movies = Movie::onlyTrashed()->get();
+        return view('movies.trash', compact('movies'));
+    }
+
+        
+    public function restore($id)
+    {
+        $movie = Movie::onlyTrashed()->findOrFail($id);
+        $movie->restore();
+
+        return redirect()->route('movies.index')->with('success', 'Movie restored successfully!');
+    }
+
 }

@@ -6,28 +6,30 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-// Public landing page
 Route::get('/', function () {
     return view('home');
 });
 
-//  Dashboard route (required for Breeze navigation)
+// Dashboard
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-// Protected routes require authentication
+// ✅ TEMPORARY WORKAROUND — trash outside auth middleware
+Route::get('/test-trash', [MovieController::class, 'trash']);
+Route::get('/movies/trash', [MovieController::class, 'trash'])->name('movies.trash');
+
+// ✅ Authenticated Routes
 Route::middleware('auth')->group(function () {
-    // Movie and Genre CRUD
     Route::resource('movies', MovieController::class);
     Route::resource('genres', GenreController::class);
 
-    // User Profile management (provided by Breeze)
+    Route::post('/movies/restore/{id}', [MovieController::class, 'restore'])->name('movies.restore');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // Handle profile update via POST
     Route::post('/profile', function(Request $request) {
         $data = $request->validate([
             'name'  => 'required|string|max:255',
@@ -38,5 +40,5 @@ Route::middleware('auth')->group(function () {
     })->name('profile.update.post');
 });
 
-// Authentication routes (login, register, etc.)
+// Auth scaffolding (login/register)
 require __DIR__ . '/auth.php';
