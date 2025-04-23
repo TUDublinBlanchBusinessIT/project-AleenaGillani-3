@@ -7,26 +7,17 @@ use App\Models\Genre;
 
 class GenreController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $genres = Genre::all();
         return view('genres.index', compact('genres'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('genres.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validated = $request->validate($this->genreRules());
@@ -37,27 +28,18 @@ class GenreController extends Controller
             ->with('success', 'Genre created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $genre = Genre::findOrFail($id);
         return view('genres.show', compact('genre'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $genre = Genre::findOrFail($id);
         return view('genres.edit', compact('genre'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $validated = $request->validate($this->genreRules());
@@ -69,9 +51,6 @@ class GenreController extends Controller
             ->with('success', 'Genre updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $genre = Genre::findOrFail($id);
@@ -81,9 +60,22 @@ class GenreController extends Controller
             ->with('success', 'Genre deleted successfully.');
     }
 
-    /**
-     * Validation rules for genres.
-     */
+    // ✅ Soft delete: Show trashed genres
+    public function trash()
+    {
+        $genres = Genre::onlyTrashed()->get();
+        return view('genres.trash', compact('genres'));
+    }
+
+    // ✅ Soft delete: Restore genre
+    public function restore($id)
+    {
+        $genre = Genre::onlyTrashed()->findOrFail($id);
+        $genre->restore();
+
+        return redirect()->route('genres.index')->with('success', 'Genre restored successfully!');
+    }
+
     protected function genreRules(): array
     {
         return [

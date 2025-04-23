@@ -19,6 +19,9 @@ Route::get('/dashboard', function () {
 Route::get('/test-trash', [MovieController::class, 'trash']);
 Route::get('/movies/trash', [MovieController::class, 'trash'])->name('movies.trash');
 
+// ✅ TEMPORARY WORKAROUND — genre trash route outside auth
+Route::get('/test-genre-trash', [GenreController::class, 'trash'])->name('genres.trash');
+
 // ✅ Authenticated Routes
 Route::middleware('auth')->group(function () {
     Route::resource('movies', MovieController::class);

@@ -4,6 +4,8 @@
 <h1>Genres</h1>
 
 <a href="{{ route('genres.create') }}" class="btn btn-success mb-3">Add New Genre</a>
+<a href="{{ route('genres.trash') }}" class="btn btn-secondary mb-3 ml-2">View Trash</a>
+
 
 <table class="table table-bordered">
   <thead>
