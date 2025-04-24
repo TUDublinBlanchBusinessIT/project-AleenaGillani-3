@@ -26,6 +26,8 @@ Route::get('/test-genre-trash', [GenreController::class, 'trash'])->name('genres
 Route::middleware('auth')->group(function () {
     Route::resource('movies', MovieController::class);
     Route::resource('genres', GenreController::class);
+    Route::resource('reviews', ReviewController::class);
+
 
     Route::post('/movies/restore/{id}', [MovieController::class, 'restore'])->name('movies.restore');
 
