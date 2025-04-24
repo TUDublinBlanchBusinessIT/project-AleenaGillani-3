@@ -23,6 +23,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('genres.index') }}">Genres</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('reviews.index') }}">Reviews</a>
+                </li>
             </ul>
 
             <ul class="navbar-nav">

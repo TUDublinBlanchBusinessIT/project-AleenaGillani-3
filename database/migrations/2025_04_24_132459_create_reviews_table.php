@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
             $table->foreignId('movie_id')->constrained()->onDelete('cascade');
-            $table->string('reviewer_name');
-            $table->text('content');
+            $table->string('reviewer');
             $table->tinyInteger('rating')->unsigned(); // Rating out of 10
+            $table->text('comment')->nullable(); // Already handled in seeder
             $table->timestamps();
         });
     }

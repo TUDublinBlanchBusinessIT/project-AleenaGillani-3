@@ -3,19 +3,24 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Genre;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 class GenreSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
-        $now = Carbon::now();
-        DB::table('genres')->insert([
-            ['name' => 'Action', 'description' => 'High energy, lots of stunts', 'created_at' => $now, 'updated_at' => $now],
-            ['name' => 'Comedy', 'description' => 'Laugh-out-loud fun',     'created_at' => $now, 'updated_at' => $now],
-            ['name' => 'Drama',  'description' => 'Serious storytelling',     'created_at' => $now, 'updated_at' => $now],
-            ['name' => 'Sci-Fi', 'description' => 'Futuristic and fantastic', 'created_at' => $now, 'updated_at' => $now],
-        ]);
+        $genres = [
+            ['name' => 'Action', 'description' => 'Fast-paced movies with lots of excitement.'],
+            ['name' => 'Comedy', 'description' => 'Funny and entertaining films.'],
+            ['name' => 'Drama', 'description' => 'Emotional and narrative-driven stories.'],
+            ['name' => 'Horror', 'description' => 'Scary movies with suspense.'],
+            ['name' => 'Sci-Fi', 'description' => 'Science fiction and futuristic themes.'],
+        ];
+
+        foreach ($genres as $genre) {
+            Genre::create($genre);
+        }
     }
 }
