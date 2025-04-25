@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
 
 
 
+
     Route::post('/movies/restore/{id}', [MovieController::class, 'restore'])->name('movies.restore');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
