@@ -7,59 +7,61 @@ use Illuminate\Http\Request;
 
 class ActorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $actors = Actor::all();
+        return view('actors.index', compact('actors'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('actors.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'biography' => 'nullable|string',
+            'birth_date' => 'nullable|date',
+        ]);
+
+        Actor::create($validated);
+
+        return redirect()->route('actors.index')->with('success', 'Actor added successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Actor $actor)
+    public function show($id)
     {
-        //
+        $actor = Actor::findOrFail($id);
+        return view('actors.show', compact('actor'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Actor $actor)
+    public function edit($id)
     {
-        //
+        $actor = Actor::findOrFail($id);
+        return view('actors.edit', compact('actor'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Actor $actor)
+    public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'biography' => 'nullable|string',
+            'birth_date' => 'nullable|date',
+        ]);
+
+        $actor = Actor::findOrFail($id);
+        $actor->update($validated);
+
+        return redirect()->route('actors.index')->with('success', 'Actor updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Actor $actor)
+    public function destroy($id)
     {
-        //
+        $actor = Actor::findOrFail($id);
+        $actor->delete();
+
+        return redirect()->route('actors.index')->with('success', 'Actor deleted.');
     }
 }
