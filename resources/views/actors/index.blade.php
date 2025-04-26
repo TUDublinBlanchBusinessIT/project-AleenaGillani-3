@@ -4,7 +4,10 @@
 <div class="container">
     <h1 class="mb-4">Actors</h1>
 
-    <a href="{{ route('actors.create') }}" class="btn btn-success mb-3">Add New Actor</a>
+    <div class="d-flex justify-content-between mb-3">
+        <a href="{{ route('actors.create') }}" class="btn btn-success">Add New Actor</a>
+        <a href="{{ route('actors.trash') }}" class="btn btn-secondary">View Trash</a>  {{-- ADD THIS LINE --}}
+    </div>
 
     <table class="table table-bordered">
         <thead>

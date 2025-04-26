@@ -3,6 +3,8 @@
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\ActorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,20 +21,21 @@ Route::get('/dashboard', function () {
 Route::get('/test-trash', [MovieController::class, 'trash']);
 Route::get('/movies/trash', [MovieController::class, 'trash'])->name('movies.trash');
 
-// ✅ TEMPORARY WORKAROUND — genre trash route outside auth
 Route::get('/test-genre-trash', [GenreController::class, 'trash'])->name('genres.trash');
+
+// ✅ TEMPORARY WORKAROUND — actor trash route outside auth
+Route::get('/test-actor-trash', [ActorController::class, 'trash'])->name('actors.trash');
 
 // ✅ Authenticated Routes
 Route::middleware('auth')->group(function () {
     Route::resource('movies', MovieController::class);
     Route::resource('genres', GenreController::class);
-    Route::resource('reviews', \App\Http\Controllers\ReviewController::class);
-    Route::resource('actors', \App\Http\Controllers\ActorController::class);
+    Route::resource('reviews', ReviewController::class);
+    Route::resource('actors', ActorController::class);
 
-
-
-
+    // ✅ Restore Routes
     Route::post('/movies/restore/{id}', [MovieController::class, 'restore'])->name('movies.restore');
+    Route::post('/actors/restore/{id}', [ActorController::class, 'restore'])->name('actors.restore');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
