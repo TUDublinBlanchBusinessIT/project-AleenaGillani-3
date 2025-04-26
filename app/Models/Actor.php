@@ -4,14 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Actor extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
-    protected $fillable = [
-        'name',
-        'biography',
-        'birth_date',
-    ];
+    protected $fillable = ['name', 'birth_date', 'biography'];
+
+    protected $dates = ['birth_date', 'deleted_at'];
 }

@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('name');
             $table->text('biography')->nullable();
             $table->date('birth_date')->nullable();
+            $table->softDeletes();
+
         });
     }
 

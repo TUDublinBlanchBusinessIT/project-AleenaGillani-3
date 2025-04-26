@@ -64,4 +64,19 @@ class ActorController extends Controller
 
         return redirect()->route('actors.index')->with('success', 'Actor deleted.');
     }
+
+    public function trash()
+    {
+        $actors = Actor::onlyTrashed()->get();
+        return view('actors.trash', compact('actors'));
+    }
+
+    public function restore($id)
+    {
+        $actor = Actor::onlyTrashed()->findOrFail($id);
+        $actor->restore();
+
+        return redirect()->route('actors.index')->with('success', 'Actor restored successfully!');
+    }
+
 }
