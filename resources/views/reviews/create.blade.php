@@ -32,8 +32,12 @@
         </div>
 
         <div class="form-group">
-            <label for="rating">Rating (1-10):</label>
-            <input type="number" name="rating" class="form-control" min="1" max="10" required>
+            <label for="rating">Rating (out of 10):</label>
+            <select name="rating" id="rating" class="form-control" required>
+                @for ($i = 10; $i >= 1; $i--)
+                    <option value="{{ $i }}">{{ $i }} / 10</option>
+                @endfor
+            </select>
         </div>
 
         <div class="form-group">

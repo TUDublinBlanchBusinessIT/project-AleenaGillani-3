@@ -14,7 +14,7 @@
                 <tr>
                     <th>Movie</th>
                     <th>Reviewer</th>
-                    <th>Rating</th>
+                    <th>Rating</th> <!-- just showing rating number -->
                     <th>Comment</th>
                     <th>Actions</th>
                 </tr>
@@ -22,10 +22,10 @@
             <tbody>
                 @foreach ($reviews as $review)
                 <tr>
-                    <td>{{ $review->movie->title }}</td>
+                    <td>{{ $review->movie->title ?? 'N/A' }}</td>
                     <td>{{ $review->reviewer }}</td>
-                    <td>{{ $review->rating }}</td>
-                    <td>{{ $review->comment }}</td>
+                    <td>{{ $review->rating ?? 'N/A' }}/10</td> <!-- display rating safely -->
+                    <td>{{ $review->comment ?? '-' }}</td>
                     <td>
                         <a href="{{ route('reviews.show', $review->id) }}" class="btn btn-info btn-sm">View</a>
                         <a href="{{ route('reviews.edit', $review->id) }}" class="btn btn-warning btn-sm">Edit</a>
