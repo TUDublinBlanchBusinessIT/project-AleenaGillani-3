@@ -26,13 +26,11 @@
         </div>
     </form>
 
-    <!-- Movie Creation and Trash Link -->
     <div class="d-flex justify-content-between mb-3">
         <a href="{{ route('movies.create') }}" class="btn btn-success">Add New Movie</a>
         <a href="{{ route('movies.trash') }}" class="btn btn-secondary">View Trash</a>
     </div>
 
-    <!-- Movies Table -->
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -51,10 +49,11 @@
                 <td>
                     <a href="{{ route('movies.show', $movie->id) }}" class="btn btn-info btn-sm">View</a>
                     <a href="{{ route('movies.edit', $movie->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                    <form action="{{ route('movies.destroy', $movie->id) }}" method="POST" style="display: inline-block;">
+
+                    <form id="delete-form-{{ $movie->id }}" action="{{ route('movies.destroy', $movie->id) }}" method="POST" style="display: inline-block;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete({{ $movie->id }})">Delete</button>
                     </form>
                 </td>
             </tr>

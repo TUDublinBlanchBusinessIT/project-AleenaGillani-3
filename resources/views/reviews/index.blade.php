@@ -14,7 +14,7 @@
                 <tr>
                     <th>Movie</th>
                     <th>Reviewer</th>
-                    <th>Rating</th> <!-- just showing rating number -->
+                    <th>Rating</th>
                     <th>Comment</th>
                     <th>Actions</th>
                 </tr>
@@ -24,15 +24,18 @@
                 <tr>
                     <td>{{ $review->movie->title ?? 'N/A' }}</td>
                     <td>{{ $review->reviewer }}</td>
-                    <td>{{ $review->rating ?? 'N/A' }}/10</td> <!-- display rating safely -->
+                    <td>{{ $review->rating ?? 'N/A' }}/10</td>
                     <td>{{ $review->comment ?? '-' }}</td>
                     <td>
                         <a href="{{ route('reviews.show', $review->id) }}" class="btn btn-info btn-sm">View</a>
                         <a href="{{ route('reviews.edit', $review->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                        <form action="{{ route('reviews.destroy', $review->id) }}" method="POST" style="display:inline;">
+
+                        <form id="delete-form-{{ $review->id }}" action="{{ route('reviews.destroy', $review->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+                            <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete({{ $review->id }})">
+                                Delete
+                            </button>
                         </form>
                     </td>
                 </tr>
