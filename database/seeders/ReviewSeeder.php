@@ -44,6 +44,37 @@ class ReviewSeeder extends Seeder
             ['movie_id' => $movies[4]->id, 'reviewer' => 'Kaitlyn Roberts', 'rating' => 9, 'comment' => 'A visual spectacle, but the story could have been stronger.'],
             ['movie_id' => $movies[4]->id, 'reviewer' => 'James Davis', 'rating' => 7, 'comment' => 'Impressive visuals, but felt like something was missing.'],
             ['movie_id' => $movies[4]->id, 'reviewer' => 'Sophia Martin', 'rating' => 10, 'comment' => 'An unforgettable experience, highly recommended!'],
+
+            // Movie 6 (Shadows of Time)
+            ['movie_id' => $movies[5]->id, 'reviewer' => 'Ella Thomas', 'rating' => 8, 'comment' => 'A touching and beautiful story.'],
+            ['movie_id' => $movies[5]->id, 'reviewer' => 'Benjamin Green', 'rating' => 7, 'comment' => 'Good story but the pacing was a bit slow.'],
+            ['movie_id' => $movies[5]->id, 'reviewer' => 'Sophia Anderson', 'rating' => 9, 'comment' => 'Deep and emotional. Great performances.'],
+
+            // Movie 7 (Galaxy Force)
+            ['movie_id' => $movies[6]->id, 'reviewer' => 'Michael Scott', 'rating' => 6, 'comment' => 'Great visuals but the story was lacking.'],
+            ['movie_id' => $movies[6]->id, 'reviewer' => 'Rebecca Davis', 'rating' => 7, 'comment' => 'Enjoyable but not memorable.'],
+            ['movie_id' => $movies[6]->id, 'reviewer' => 'Evan Jackson', 'rating' => 8, 'comment' => 'Fun ride, just not much depth.'],
+
+            // Movie 8 (Haunted Hollow)
+            ['movie_id' => $movies[7]->id, 'reviewer' => 'Olivia Clarke', 'rating' => 9, 'comment' => 'A thrilling horror experience.'],
+            ['movie_id' => $movies[7]->id, 'reviewer' => 'Nathaniel Brooks', 'rating' => 8, 'comment' => 'Suspenseful with a good twist.'],
+            ['movie_id' => $movies[7]->id, 'reviewer' => 'Abigail Scott', 'rating' => 7, 'comment' => 'Good movie, but not as scary as expected.'],
+
+            // Movie 9 (The Big Giggle)
+            ['movie_id' => $movies[8]->id, 'reviewer' => 'Daniel Kim', 'rating' => 8, 'comment' => 'Hilarious from start to finish!'],
+            ['movie_id' => $movies[8]->id, 'reviewer' => 'Lily Stone', 'rating' => 9, 'comment' => 'Great comedy with great performances.'],
+
+            // Movie 10 (Defenders of Earth)
+            ['movie_id' => $movies[9]->id, 'reviewer' => 'Henry Johnson', 'rating' => 7, 'comment' => 'Great action, but lacking depth.'],
+            ['movie_id' => $movies[9]->id, 'reviewer' => 'Grace Lee', 'rating' => 8, 'comment' => 'Entertaining but could have been better.'],
+
+            // Movie 11 (Twilight)
+            ['movie_id' => $movies[10]->id, 'reviewer' => 'Sophie Brown', 'rating' => 9, 'comment' => 'An emotional and gripping story.'],
+            ['movie_id' => $movies[10]->id, 'reviewer' => 'Jesse Collins', 'rating' => 7, 'comment' => 'I loved the characters, but the plot was predictable.'],
+
+            // Movie 12 (Twilight)
+            ['movie_id' => $movies[11]->id, 'reviewer' => 'Ava Scott', 'rating' => 6, 'comment' => 'Great visuals but the story didn’t capture me.'],
+            ['movie_id' => $movies[11]->id, 'reviewer' => 'Lucas Harris', 'rating' => 8, 'comment' => 'Loved the chemistry between the leads, but the pacing was off.'],
         ];
 
         // Loop through each review and create a new record

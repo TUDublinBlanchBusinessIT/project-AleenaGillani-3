@@ -37,7 +37,8 @@
                 <th>Title</th>
                 <th>Release Date</th>
                 <th>Genre</th>
-                <th>rating</th>
+                <th>Rating</th>
+                <th>Actors</th> <!-- New column for actors -->
                 <th>Actions</th>
             </tr>
         </thead>
@@ -47,7 +48,12 @@
                 <td>{{ $movie->title }}</td>
                 <td>{{ $movie->release_date }}</td>
                 <td>{{ $movie->genre ? $movie->genre->name : 'N/A' }}</td>
-                <td>{{ $movie->reviews->avg('rating')}}</td>
+                <td>{{ $movie->reviews->avg('rating') ?? 'N/A' }} / 10</td> <!-- Display average rating -->
+                <td>
+                    @foreach ($movie->actors as $actor) <!-- Loop through actors -->
+                        {{ $actor->name }} @if(!$loop->last), @endif
+                    @endforeach
+                </td>
                 <td>
                     <a href="{{ route('movies.show', $movie->id) }}" class="btn btn-info btn-sm">View</a>
                     <a href="{{ route('movies.edit', $movie->id) }}" class="btn btn-warning btn-sm">Edit</a>

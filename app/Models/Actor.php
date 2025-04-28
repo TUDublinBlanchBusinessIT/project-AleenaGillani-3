@@ -13,4 +13,13 @@ class Actor extends Model
     protected $fillable = ['name', 'birth_date', 'biography'];
 
     protected $dates = ['birth_date', 'deleted_at'];
+
+    public function movies()
+{
+    return $this->belongsToMany(Movie::class, 'movie_actor');
 }
+
+
+}
+
+

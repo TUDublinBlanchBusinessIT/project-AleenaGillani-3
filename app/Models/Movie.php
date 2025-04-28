@@ -25,4 +25,10 @@ class Movie extends Model
     {
         return $this->hasMany(Review::class);
     }
+    
+    public function actors()
+    {
+        return $this->belongsToMany(Actor::class, 'movie_actor');
+    }
+
 }

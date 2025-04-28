@@ -31,9 +31,7 @@
         <label for="genre_id">Genre</label>
         <select name="genre_id" class="form-control @error('genre_id') is-invalid @enderror" required>
             @foreach($genres as $genre)
-                <option value="{{ $genre->id }}" {{ old('genre_id', $movie->genre_id) == $genre->id ? 'selected' : '' }}>
-                    {{ $genre->name }}
-                </option>
+                <option value="{{ $genre->id }}" {{ old('genre_id', $movie->genre_id) == $genre->id ? 'selected' : '' }}>{{ $genre->name }}</option>
             @endforeach
         </select>
     </div>
@@ -61,8 +59,19 @@
         <label for="description">Description</label>
         <textarea 
             name="description" 
-            class="form-control @error('description') is-invalid @enderror"
-        >{{ old('description', $movie->description) }}</textarea>
+            class="form-control @error('description') is-invalid @enderror">{{ old('description', $movie->description) }}</textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="actors">Select Actors:</label>
+        <div class="form-check">
+            @foreach ($actors as $actor)
+                <input type="checkbox" name="actors[]" value="{{ $actor->id }}" 
+                    {{ in_array($actor->id, old('actors', $movie->actors->pluck('id')->toArray())) ? 'checked' : '' }} 
+                    class="form-check-input">
+                <label class="form-check-label">{{ $actor->name }}</label><br>
+            @endforeach
+        </div>
     </div>
 
     <button type="submit" class="btn btn-success mt-3">Update Movie</button>

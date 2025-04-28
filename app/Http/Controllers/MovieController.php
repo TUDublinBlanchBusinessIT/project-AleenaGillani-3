@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Movie;
 use App\Models\Genre;
+use App\Models\Actor;
 
 class MovieController extends Controller
 {
@@ -23,7 +24,7 @@ class MovieController extends Controller
             $query->where('genre_id', $request->genre_id);
         }
 
-        $movies = $query->get();
+        $movies = $query->with('actors')->get();  // Eager load actors
         $genres = Genre::all();
 
         return view('movies.index', compact('movies', 'genres'));
@@ -35,7 +36,8 @@ class MovieController extends Controller
     public function create()
     {
         $genres = Genre::all();
-        return view('movies.create', compact('genres'));
+        $actors = Actor::all();  // Fetch all actors
+        return view('movies.create', compact('genres', 'actors'));  // Pass actors to the view
     }
 
     /**
@@ -43,9 +45,18 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate($this->movieRules());
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'release_date' => 'required|date',
+            'genre_id' => 'required|exists:genres,id',
+            'actors' => 'required|array',  // Validate the actors selection
+        ]);
 
-        Movie::create($validated);
+        // Create the movie
+        $movie = Movie::create($validated);
+
+        // Attach the selected actors to the movie using the pivot table
+        $movie->actors()->attach($request->actors);
 
         return redirect()->route('movies.index')
             ->with('success', 'Movie created successfully.');
@@ -56,7 +67,7 @@ class MovieController extends Controller
      */
     public function show(string $id)
     {
-        $movie = Movie::findOrFail($id);
+        $movie = Movie::with('actors')->findOrFail($id);  // Eager load actors
         return view('movies.show', compact('movie'));
     }
 
@@ -67,21 +78,30 @@ class MovieController extends Controller
     {
         $movie  = Movie::findOrFail($id);
         $genres = Genre::all();
-        return view('movies.edit', compact('movie', 'genres'));
+        $actors = Actor::all();  // Fetch all actors
+        return view('movies.edit', compact('movie', 'genres', 'actors'));  // Pass actors to the view
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        $validated = $request->validate($this->movieRules());
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'release_date' => 'required|date',
+            'genre_id' => 'required|exists:genres,id',
+            'actors' => 'required|array',  // Validate the actors selection
+        ]);
 
+        // Find the movie and update
         $movie = Movie::findOrFail($id);
         $movie->update($validated);
 
-        return redirect()->route('movies.index')
-            ->with('success', 'Movie updated successfully.');
+        // Sync the selected actors with the movie (this removes old ones and adds new ones)
+        $movie->actors()->sync($request->actors);
+
+        return redirect()->route('movies.index')->with('success', 'Movie updated successfully.');
     }
 
     /**
@@ -102,14 +122,14 @@ class MovieController extends Controller
     protected function movieRules(): array
     {
         return [
-            'title'        => 'required|string|max:255',
-            'genre_id'     => 'required|exists:genres,id',
+            'title' => 'required|string|max:255',
+            'genre_id' => 'required|exists:genres,id',
             'release_date' => 'required|date',
-            'rating'       => 'nullable|string',
-            'description'  => 'nullable|string',
+            'rating' => 'nullable|string',
+            'description' => 'nullable|string',
+            'actors' => 'required|array',  // Ensure actors are selected as an array
         ];
     }
-
 
     public function trash()
     {
@@ -117,7 +137,6 @@ class MovieController extends Controller
         return view('movies.trash', compact('movies'));
     }
 
-        
     public function restore($id)
     {
         $movie = Movie::onlyTrashed()->findOrFail($id);
@@ -125,5 +144,4 @@ class MovieController extends Controller
 
         return redirect()->route('movies.index')->with('success', 'Movie restored successfully!');
     }
-
 }
