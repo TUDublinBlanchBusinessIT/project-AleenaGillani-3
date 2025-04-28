@@ -21,24 +21,24 @@
             </thead>
             <tbody>
                 @foreach ($reviews as $review)
-                <tr>
-                    <td>{{ $review->movie->title ?? 'N/A' }}</td>
-                    <td>{{ $review->reviewer }}</td>
-                    <td>{{ $review->rating ?? 'N/A' }}/10</td>
-                    <td>{{ $review->comment ?? '-' }}</td>
-                    <td>
-                        <a href="{{ route('reviews.show', $review->id) }}" class="btn btn-info btn-sm">View</a>
-                        <a href="{{ route('reviews.edit', $review->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                    <tr>
+                        <td>{{ $review->movie->title ?? 'N/A' }}</td>
+                        <td>{{ $review->reviewer }}</td>
+                        <td>{{ $review->rating ?? 'N/A' }}/10</td>
+                        <td>{{ $review->comment ?? '-' }}</td>
+                        <td>
+                            <a href="{{ route('reviews.show', $review->id) }}" class="btn btn-info btn-sm">View</a>
+                            <a href="{{ route('reviews.edit', $review->id) }}" class="btn btn-warning btn-sm">Edit</a>
 
-                        <form id="delete-form-{{ $review->id }}" action="{{ route('reviews.destroy', $review->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete({{ $review->id }})">
-                                Delete
-                            </button>
-                        </form>
-                    </td>
-                </tr>
+                            <form id="delete-form-{{ $review->id }}" action="{{ route('reviews.destroy', $review->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete({{ $review->id }})">
+                                    Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>

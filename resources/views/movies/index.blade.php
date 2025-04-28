@@ -37,6 +37,7 @@
                 <th>Title</th>
                 <th>Release Date</th>
                 <th>Genre</th>
+                <th>rating</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -46,6 +47,7 @@
                 <td>{{ $movie->title }}</td>
                 <td>{{ $movie->release_date }}</td>
                 <td>{{ $movie->genre ? $movie->genre->name : 'N/A' }}</td>
+                <td>{{ $movie->reviews->avg('rating')}}</td>
                 <td>
                     <a href="{{ route('movies.show', $movie->id) }}" class="btn btn-info btn-sm">View</a>
                     <a href="{{ route('movies.edit', $movie->id) }}" class="btn btn-warning btn-sm">Edit</a>
