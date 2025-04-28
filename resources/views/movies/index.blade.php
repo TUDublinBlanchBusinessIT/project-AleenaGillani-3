@@ -43,17 +43,22 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($movies as $movie)
+            @foreach($movies as $movie)  <!-- Loop through movies -->
             <tr>
                 <td>{{ $movie->title }}</td>
                 <td>{{ $movie->release_date }}</td>
                 <td>{{ $movie->genre ? $movie->genre->name : 'N/A' }}</td>
-                <td>{{ $movie->reviews->avg('rating') ?? 'N/A' }} / 10</td> <!-- Display average rating -->
+                
+                <!-- Display the numeric rating directly -->
+                <td>{{ $movie->reviews->avg('rating') ?? 'N/A' }} / 10</td>
+
+                <!-- Display Actors -->
                 <td>
                     @foreach ($movie->actors as $actor) <!-- Loop through actors -->
                         {{ $actor->name }} @if(!$loop->last), @endif
                     @endforeach
                 </td>
+
                 <td>
                     <a href="{{ route('movies.show', $movie->id) }}" class="btn btn-info btn-sm">View</a>
                     <a href="{{ route('movies.edit', $movie->id) }}" class="btn btn-warning btn-sm">Edit</a>
